@@ -7,6 +7,10 @@ require_once "src/mysql.php";
 require_once "src/updates.php";
 
 echo "<pre>";
+$config= new config();
+print_r($config->mssql);
+print_r($config);
+die();
 
 $mssql= new mssql($config->mssql);
 

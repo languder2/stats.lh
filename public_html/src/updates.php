@@ -173,7 +173,7 @@ class updates{
         echo "<pre>";
         $i=0;
         foreach($this->mssql->getResults() as $record){
-            if($i==1) die();
+            if($i==10) die();
             $i++;
             $where=[
                 "id"=>$this->mssql->getField($record,"Код_Заявления"),

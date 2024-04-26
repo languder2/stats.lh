@@ -8,7 +8,7 @@ require_once "src/updates.php";
 
 echo "<pre>";
 
-
+$config= new config();
 $mssql= new mssql($config->mssql);
 $updates= new updates($config);
 $updates->applications();
