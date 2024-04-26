@@ -156,7 +156,7 @@ class updates{
         $this->mysql->table("upds")->where(["code"=>$table])->update(["date"=>date("Y-m-d H:i:s")]);
     }
 
-    public function structures(){
+    public function structures():string{
         $this->updateFaculties();
         $this->updateLevels();
         $this->updateTypes();

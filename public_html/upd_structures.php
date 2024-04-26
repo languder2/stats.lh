@@ -12,7 +12,7 @@ $config= new config();
 $mssql= new mssql($config->mssql);
 
 $updates= new updates($config);
-$updates->structures();
+echo $updates->structures();
 
 die();
 
