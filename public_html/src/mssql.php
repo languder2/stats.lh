@@ -28,6 +28,14 @@ class mssql{
             die();
         }
     }
+
+    public function group($arg= false):object{
+        if(empty($arg))
+            $this->group= "";
+        else
+        $this->group= "GROUP BY $arg";
+        return $this;
+    }
     public function table($table){
         $this->res= false;
         $this->results = [];
@@ -130,3 +138,7 @@ class mssql{
     }
 }
 
+function gf($str):string
+{
+    return mb_convert_encoding($str,"cp1251");
+}

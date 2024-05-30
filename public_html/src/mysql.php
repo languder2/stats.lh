@@ -5,7 +5,7 @@ class mysql{
     private $conn;
     private $res;
     public $results = [];
-    private $query;
+    public $query;
     private $table;
     private $select= " * ";
     private $where;
@@ -83,7 +83,7 @@ class mysql{
         return mysqli_num_rows($this->res);
     }
 
-    public function getResults($type= " object"):object{
+    public function getResults($type= " object"):array{
         $results= [];
         if($type== "array")
             while ($obj = mysqli_fetch_array($this->res)) $results[]= $obj;
@@ -125,9 +125,35 @@ class mysql{
             $value= trim($value??"");
             if(empty($value)) continue;
             if(strlen($values)!=0) $values.=", ";
-            $values.= "$field= '".addslashes($value)."'";
+            $values.= "$field='".addslashes($value)."'";
         }
         return $values;
+    }
+
+    public function truncate():object{
+        $this->query= "TRUNCATE TABLE ".$this->table;
+        $this->get();
+        return $this;
+    }
+    public function group($arg= false):object{
+        if(empty($arg))
+            $this->group= "";
+        else
+            $this->group= "GROUP BY $arg";
+        return $this;
+    }
+
+    public function getUnique($field= false):array{
+        $res= $this->select($field)->group($field)->get()->getResults();
+        $results= [];
+        foreach ($res as $result)
+            if(!empty($result->{$field}))
+                $results[]= $result->{$field};
+        return $results;
+    }
+
+    public function cquery($query){
+        $this->res = mysqli_query($this->conn,$query);
     }
 
 }

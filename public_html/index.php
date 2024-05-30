@@ -6,15 +6,11 @@ require_once "src/mssql.php";
 require_once "src/mysql.php";
 require_once "src/updates.php";
 
+echo 123;
+die();
 echo "<pre>";
 $config= new config();
-print_r($config->mssql);
-print_r($config);
-die();
-
-$mssql= new mssql($config->mssql);
-
-$table= "Статус_Студента";
-$mssql->table($table)->where()->get();
-print_r($mssql->getResults());
-die();
+$mysql= new mysql($config->mysql);
+$mysql->table("applications")->get();
+$mysql->getResults();
+print_r($mysql->results);

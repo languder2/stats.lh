@@ -67,27 +67,35 @@ function viewTables($tables){
 <style>
     .blockTables{
         display: grid;
-        grid-template-columns: repeat(5,50px 3fr);
+        grid-template-columns: repeat(4, 1fr);
         column-gap: 10px;
         row-gap: 4px;
+        max-width: 1300px;
+        margin: 270px auto 0 auto;
     }
-    .blockTables div{
-        padding: 2px 0;
-        border-bottom: solid 1px #00aaff70;
+    .blockTables div div{
+        padding: 4px 0;
+        //border-bottom: solid 1px #00aaff70;
     }
-    .blockTables > div:nth-child(2n){
-        border-right: solid 1px #00aaff70;
-    }
-    .blockTables > div:nth-child(2n+1){
-        text-align: right;
+    .blockTables div div span{
+        display: inline-block;
+        width: 30px;
     }
 
 </style>
 <div class="blockTables">
+    <div>
     <?php
-    foreach ($tables as $code=>$name)
-        echo "<div>$code</div><div>$name</div>";
+    $ci= Ceil(count($tables)/4);
+    foreach ($tables as $code=>$name):
+        if($code%$ci==0 && $code!==0) echo "</div><div>";
+        echo "<div>
+                <span>$code</span>
+                $name
+        </div>";
+    endforeach;
     ?>
+    </div>
 </div>
 <?php
 }
@@ -115,60 +123,4 @@ function printResults($conn,$table,$tsql= false){
 $conn= OpenConnection();
 $tables= getTables();
 viewTables($tables);
-
-
-$hdb= mysqli_connect("ucrtecrt.beget.tech","ucrtecrt_stats","5&t0nOzk","ucrtecrt_stats");
-
-
-
-//print_r(getField("okso"));
-$tsql= "SELECT * FROM ".$tables[92]." WHERE ".getField("okso")."='38.03.01'";
-if(($result = sqlsrv_query($conn,$tsql,[],["Scrollable" => SQLSRV_CURSOR_KEYSET ])) !== false) {
-    echo sqlsrv_num_rows($result) . "index.php";
-    ?>
-    <div style="display: grid; grid-template-columns: repeat(10, 1fr);">
-        <?php
-        while ($obj = sqlsrv_fetch_array($result)) {
-            echo "<div><pre>";
-            echo $obj[0]."<br>";
-            echo $obj[4]."<br>";
-            echo $obj[8]."<br>";
-            echo $obj[18]."<br>";
-            echo $obj[19]."<br>";
-            echo $obj[20]."<br>";
-            echo $obj[21]."<br>";
-            echo $obj[27]."<br>";
-            echo $obj[44]."<br>";
-            $sql= (object)[
-                    "id"=>$obj[0],
-                    "code"=>$obj[3],
-                    "name"=>$obj[4],
-                    "full"=>$obj[9],
-                    "level"=>$obj[8],
-            ];
-            print_r($sql);
-            echo "</pre></div>";
-        }
-        ?>
-    </div>
-    <?
-}
-
-
-DIE();
-
-//printResults($conn,$tables[108]); //
-//printResults($conn,$tables[108]); //
-//printResults($conn,$tables[100]); // Статус студента
-printResults($conn,$tables[52]); // Заявления
-
-$tsql= "SELECT * FROM $tables[92] WHERE ".getField("code")."='264'";
-printResults($conn,$tables[92],$tsql);
-printResults($conn,$tables[105]);
-
-
-?>
-
-</body>
-</html>
 

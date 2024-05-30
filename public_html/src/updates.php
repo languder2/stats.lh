@@ -168,12 +168,12 @@ class updates{
 
     public function applications(){
         $table= "applications";
-        if($this->mysql->checkRecord("upds","code='$table' and date<='".date("Y-m-d H:i:s",time()-0)."'") === false) return false;
+//        if($this->mysql->checkRecord("upds","code='$table' and date<='".date("Y-m-d H:i:s",time()-0)."'") === false) return false;
         $this->mssql->table("Все_Заявления")->where()->order()->get();
         echo "<pre>";
         $i=0;
         foreach($this->mssql->getResults() as $record){
-            if($i==10) die();
+            //if($i==10) die();
             $i++;
             $where=[
                 "id"=>$this->mssql->getField($record,"Код_Заявления"),
