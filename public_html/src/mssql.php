@@ -48,6 +48,18 @@ class mssql{
         $this->table= "[dbo].[".mb_convert_encoding($table,"cp1251")."]";
         return $this;
     }
+    public function table2($table){
+        $this->res= false;
+        $this->results = [];
+        $this->query= false;
+        $this->table= false;
+        $this->select= " * ";
+        $this->where= false;
+        $this->group= false;
+        $this->order= false;
+        $this->table= $table;
+        return $this;
+    }
 
     public function getField($record,$field){
         return $record->{mb_convert_encoding($field,"cp1251")};
