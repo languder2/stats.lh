@@ -1,4 +1,0 @@
-number=>[Номер]<=number
-codeSubject=>[Код_Пред]<=codeSubject
-code=>[Код]<=code
-okso=>[ОКСО]<=okso

@@ -10,6 +10,7 @@ class mssql{
     private $table;
     private $select= " * ";
     private $where;
+    private $limit;
     private $group;
     private $order;
     public function __construct($config){
@@ -41,6 +42,7 @@ class mssql{
         $this->results = [];
         $this->query= false;
         $this->table= false;
+        $this->limit= false;
         $this->select= " * ";
         $this->where= false;
         $this->group= false;
@@ -53,6 +55,7 @@ class mssql{
         $this->results = [];
         $this->query= false;
         $this->table= false;
+        $this->limit= false;
         $this->select= " * ";
         $this->where= false;
         $this->group= false;
@@ -99,6 +102,11 @@ class mssql{
         }
         else
             $this->where.= $arg;
+        return $this;
+    }
+
+    public function limit($p,$c){
+        $this->limit = "LIMIT $p, $c";
         return $this;
     }
 
